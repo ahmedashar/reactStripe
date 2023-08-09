@@ -24,10 +24,24 @@ const CARD_ELEMENT_OPTIONS = {
 function CardSection() {
   
   return (
+    // <label>
+    //    Card details
+    //   <CardElement options={CARD_ELEMENT_OPTIONS} />
+    // </label>
+    <div>
     <label>
-      &nbsp;&nbsp;&nbsp; Card details
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
+    &nbsp; <b>Card number</b>
+      <CardNumberElement options={CARD_ELEMENT_OPTIONS} />
     </label>
+    <label>
+    &nbsp; <b>Expiry date</b>
+      <CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
+    </label>
+    <label>
+    &nbsp; <b>CVC</b>
+      <CardCvcElement options={CARD_ELEMENT_OPTIONS} />
+    </label>
+  </div>
    
   );
 }

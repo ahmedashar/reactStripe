@@ -1,43 +1,59 @@
-import React from "react";
-import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
+import React, { useState } from "react";
+import { ElementsConsumer, CardElement, useStripe, useElements, CardNumberElement } from "@stripe/react-stripe-js";
+import CardSection from "../CardSection";
 
-import CardSection from "./cardSection";
 
-class CheckoutForm extends React.Component {
-  handleSubmit = async event => {
+function CheckoutForm() {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const [metaData, setMetaData] = useState({
+    productName: "Headphone Pro",
+    productPrice:"$199"
+  });
+ 
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const { stripe, elements } = this.props;
+  
     if (!stripe || !elements) {
       return;
     }
-
-    const card = elements.getElement(CardElement);
+  
+    // const card = elements.getElement(CardElement);
+    const card = elements.getElement(CardNumberElement);
     const result = await stripe.createToken(card);
+  
     if (result.error) {
       console.log(result.error.message);
     } else {
-      console.log(result.token);
-      // this token passed into backend api
+      console.log(result.token , "BEFORE");
+      const tokenResult = result.token;
+      // const metaData = {
+      //   productName : "Headphone Pro",
+      //   productPrice : "$199"        
+      // }
+      const FinalResult = {...tokenResult, metaData};
+      
+      console.log(FinalResult ,"AFTER");
+      // The token can be passed to your backend API
     }
   };
+  
 
-  render() {
-    return (
-      <div>
-        <div class="product-info">
-          <h3 className="product-title">Headphone Pro</h3>
-          <h4 className="product-price">$199</h4>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <CardSection />
-          <button disabled={!this.props.stripe} className="btn-pay">
-            Buy Now
-          </button>
-        </form>
+  return (
+    <div>
+      <div className="product-info">
+        <h3 className="product-title">{metaData.productName}</h3>
+        <h4 className="product-price">{metaData.productPrice}</h4>
       </div>
-    );
-  }
+      <form onSubmit={handleSubmit}>
+        <CardSection />
+        <button disabled={!stripe} className="btn-pay">
+          Buy Now
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default function InjectedCheckoutForm() {
