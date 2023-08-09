@@ -1,8 +1,9 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Stripe Payment Flow 
 
-Currently, two official plugins are available:
+<div align="center">
+<img src="./src/assets/PaymentFlow.PNG" />
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Stripe Guide:  [Follow this Blog (click here)](https://www.pluralsight.com/guides/how-to-integrate-stripe-with-react)
